@@ -1,0 +1,40 @@
+variables:
+  GIT_DEPTH: "3"
+  BUILD_IMAGE_TAG: $CI_REGISTRY_IMAGE/build:fedora
+  BUILD_UBUNTU_IMAGE_TAG: $CI_REGISTRY_IMAGE/build:ubuntu
+
+
+image: docker:latest
+services:
+  - docker:dind
+
+
+stages:
+  - build
+  - deploy
+
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+
+docker:native:build:
+  stage: build
+  script:
+    - docker build --pull -t $BUILD_IMAGE_TAG . -f DockerfileFedora
+    - docker push $BUILD_IMAGE_TAG
+  only:
+    - docker
+  when: manual
+  allow_failure: false
+
+docker:native:build:ubuntu:
+  stage: build
+  script:
+    - docker build --pull -t $BUILD_UBUNTU_IMAGE_TAG . -f DockerfileUbuntu
+    - docker push $BUILD_UBUNTU_IMAGE_TAG
+  only:
+    - docker
+  when: manual
+  allow_failure: false
+
