@@ -1,6 +1,6 @@
 variables:
   GIT_DEPTH: "3"
-  BUILD_IMAGE_TAG: $CI_REGISTRY_IMAGE/build:fedora
+  BUILD_FEDORA_IMAGE_TAG: $CI_REGISTRY_IMAGE/build:fedora
   BUILD_UBUNTU_IMAGE_TAG: $CI_REGISTRY_IMAGE/build:ubuntu
 
 
@@ -18,17 +18,17 @@ before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 
-docker:native:build:
+docker:build:fedora:
   stage: build
   script:
-    - docker build --pull -t $BUILD_IMAGE_TAG . -f DockerfileFedora
-    - docker push $BUILD_IMAGE_TAG
+    - docker build --pull -t $BUILD_FEDORA_IMAGE_TAG . -f DockerfileFedora
+    - docker push $BUILD_FEDORA_IMAGE_TAG
   only:
     - docker
   when: manual
   allow_failure: false
 
-docker:native:build:ubuntu:
+docker:build:ubuntu:
   stage: build
   script:
     - docker build --pull -t $BUILD_UBUNTU_IMAGE_TAG . -f DockerfileUbuntu
