@@ -3,7 +3,7 @@ FROM fedora:latest
 RUN dnf -y update && \
   dnf -y install \
   createrepo_c \
-  java-1.8.0-openjdk && \
+  java-1.8.0-openjdk java-1.8.0-openjdk-devel && \
   dnf clean all && \
   rm -rf /var/cache/dnf/* && \
   rm -rf /var/log/journal/* && \
