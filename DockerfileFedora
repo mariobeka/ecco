@@ -1,9 +1,10 @@
 FROM fedora:latest
 
-RUN dnf -y update && \
+RUN dnf -y upgrade --refresh && \
   dnf -y install \
   createrepo_c \
-  java-1.8.0-openjdk java-1.8.0-openjdk-devel && \
+  java-1.8.0-openjdk java-1.8.0-openjdk-devel \
+  java-1.8.0-openjdk-openjfx java-1.8.0-openjdk-openjfx-devel && \
   dnf clean all && \
   rm -rf /var/cache/dnf/* && \
   rm -rf /var/log/journal/* && \
