@@ -1,11 +1,11 @@
 FROM ubuntu:latest
 
 RUN apt -y update && \
-  apt -y autoremove
-  apt -y upgrade \
-  apt -y dist-upgrade
-  apt -y full-upgrade
-  apt -y autoremove \
+  apt -y autoremove && \
+  apt -y upgrade && \
+  apt -y dist-upgrade && \
+  apt -y full-upgrade && \
+  apt -y autoremove && \
   apt -y install \
   openjdk-8-jdk openjfx && \
   apt clean && \
