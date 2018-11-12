@@ -1,0 +1,18 @@
+plugins { id "io.spring.dependency-management" version "1.0.6.RELEASE" }
+ext { springBootVersion = '2.0.5.RELEASE' }
+
+apply plugin: 'application'
+mainClassName = "at.jku.isse.ecco.webdev.HelloWorldApplication"
+
+run {
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-jersey")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+}
